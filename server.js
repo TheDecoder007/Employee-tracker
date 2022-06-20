@@ -5,6 +5,9 @@ const cTable = require('console.table');
 const Table = require('easy-table');
 const apiRoutes = require('./routes/apiRoutes');
 const department = require('./routes/apiRoutes/departmentRoutes');
+const role = require('./routes/apiRoutes/roleRoutes');
+const employee = require('./routes/apiRoutes/employeeRoutes');
+
 
 //imports api routes
 // const apiRoutes = require('./routes');

@@ -6,12 +6,9 @@ const db = require('../../db/connection');
 
 router.get('/department', (req, res) => {
     const sql =  `id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(30) NOT NULL,
-    salary DECIMAL,
-    department_id INTEGER,
-    CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL`;
-
+    name VARCHAR(30) NOT NULL`;
   
+
     db.query(sql, (err, rows) => {
       if (err) {
         res.status(500).json({ error: err.message });
