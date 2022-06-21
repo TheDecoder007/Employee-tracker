@@ -4,21 +4,38 @@ const cTable = require('console.table');
 
 const db = require('../../db/connection');
 
+//API end point (route) to display all departments
 router.get('/department', (req, res) => {
-    const sql =  `id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) NOT NULL`;
-  
-
-    db.query(sql, (err, rows) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({
-        message: 'success',
-        data: rows
-      });
+  const sql = `SELECT * FROM department`;
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: 'All Departments',
+      data: rows
     });
   });
+});
+
+
+router.post('/department', ({ body }, res) => {
+
+  const sql = `INSERT INTO department (name)
+  VALUES (?)`;
+const params = [body.name];
+
+db.query(sql, params, (err, result) => {
+  if (err) {
+    res.status(400).json({ error: err.message });
+    return;
+  }
+  res.json({
+    message: 'Department added',
+    data: body
+  });
+});
+});
 
   module.exports = router;
