@@ -2,6 +2,7 @@ const express = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
 const inquirer = require('inquirer');
+const router = express.Router();
 
 const cTable = require('console.table');
 const Table = require('easy-table');
@@ -11,8 +12,7 @@ const role = require('./routes/apiRoutes/roleRoutes');
 const employee = require('./routes/apiRoutes/employeeRoutes');
 
 
-//imports api routes
-// const apiRoutes = require('./routes');
+
 //imports connection.js
 const db = require('./db/connection');
 
@@ -67,21 +67,25 @@ const addDepartment = () => {
             message: 'What is the name of the department?'
         }
     ])
-    .then(promptMain)
-
-
+        .then((answer => {
+            answer.departmentName = department.department_name;
+            console.log(department.department_name);
+            console.log('Department added');
+            promptMain()
+        }));
+        
 };
 
 const addRole = () => {
     return inquirer.prompt ([
         {
             type: 'input',
-            name: 'roleName',
+            name: 'roleTitle',
             message: 'What is the name of the role?'
         },
         {
             type: 'number',
-            name: 'salary',
+            name: 'roleSalary',
             message: 'What is the salary for this role?'
         },
         {

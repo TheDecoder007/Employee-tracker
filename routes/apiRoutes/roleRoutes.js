@@ -6,8 +6,7 @@ const db = require('../../db/connection');
 
 //get all roles
 router.get('/role', (req, res) => {
-  const sql = `SELECT role.*, department.name
-  AS department_name
+  const sql = `SELECT role.*, department.department_name
   FROM role
   LEFT JOIN department
   ON role.department_id = department.id`;
@@ -27,9 +26,9 @@ router.get('/role', (req, res) => {
 //create a role
 router.post('/role', ({ body }, res) => {
 
-  const sql = `INSERT INTO role (title, salary, department)
+  const sql = `INSERT INTO role (title, salary, department_name)
   VALUES (?,?,?)`;
-const params = [body.title, body.salary, body.department];
+const params = [body.title, body.salary, body.department_name];
 
 db.query(sql, params, (err, result) => {
   if (err) {

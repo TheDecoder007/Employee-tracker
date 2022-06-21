@@ -6,8 +6,8 @@ const db = require('../../db/connection');
 
 
 router.get('/employee', (req, res) => {
-  const sql = `SELECT employee.*, department.name
-  AS department_name
+  const sql = `SELECT employee.*, department.name, role.title, role.salary
+  
   FROM employee
   LEFT JOIN role
   ON employee.role_id = role.id
