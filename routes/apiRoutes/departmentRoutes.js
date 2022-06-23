@@ -19,11 +19,10 @@ router.get('/department', (req, res) => {
   });
 });
 
-
 router.post('/department', ({ body }, res) => {
 
   const sql = `INSERT INTO department (department_name)
-  VALUES (?)`;
+  VALUES ()`;
 const params = [body.department_name];
 
 db.query(sql, params, (err, result) => {
