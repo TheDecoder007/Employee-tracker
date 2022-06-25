@@ -1,5 +1,5 @@
 
-DROP DATABASE IF EXISTS myEmployees;
+DROP DATABASE IF EXISTS myemployees;
 
-CREATE DATABASE myEmployees;
-USE myEmployees;
+CREATE DATABASE myemployees;
+USE myemployees;

@@ -2,11 +2,11 @@ const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const inquirer = require("inquirer");
-const router = express.Router();
-const apiRoutes = require("./routes/apiRoutes");
-const department = require("./routes/apiRoutes/departmentRoutes");
-const role = require("./routes/apiRoutes/roleRoutes");
-const employee = require("./routes/apiRoutes/employeeRoutes");
+// const router = express.Router();
+// const apiRoutes = require("./routes/apiRoutes");
+// const department = require("./routes/apiRoutes/departmentRoutes");
+// const role = require("./routes/apiRoutes/roleRoutes");
+// const employee = require("./routes/apiRoutes/employeeRoutes");
 
 //imports connection.js
 const db = require("./db/connection");
@@ -17,7 +17,7 @@ app.use(express.json());
 
 //by adding /api prefix, we can remove it from the individual
 //route expressions after moving them to thier new js file
-app.use("/api", apiRoutes);
+// app.use("/api", apiRoutes);
 
 const promptMain = () => {
   return inquirer
@@ -42,31 +42,36 @@ const promptMain = () => {
         const sql = `SELECT * FROM department`;
         db.query(sql, (err, rows) => {
           if (err) {
-            console.log
+            console.log;
             return;
           }
           console.table(rows);
-          promptMain()
+          promptMain();
         });
       } else if (answers.mainMenu === "View all roles") {
-        const sql = `SELECT * FROM role`;
+        const sql = `SELECT * FROM roles`;
         db.query(sql, (err, rows) => {
           if (err) {
-            console.log
+            console.log;
             return;
           }
           console.table(rows);
-          promptMain()
+          promptMain();
         });
       } else if (answers.mainMenu === "View all employees") {
-        const sql = `SELECT * FROM employee`;
+        const sql = `SELECT * FROM employee
+                      LEFT JOIN roles
+                      ON employee.role_id = roles.id
+                      LEFT JOIN department
+                      ON roles.department_id = department.id
+                      `;
         db.query(sql, (err, rows) => {
           if (err) {
-            console.log
+            console.log;
             return;
           }
           console.table(rows);
-          promptMain()
+          promptMain();
         });
       } else if (answers.mainMenu === "Add a department") {
         addDepartment();
