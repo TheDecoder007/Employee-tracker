@@ -183,7 +183,7 @@ const addEmployee = () => {
     .then((answers) => {
       const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id )
       VALUES (?,?,?,?)`;
-      const params = (first_name = answers.firstName, lat_name = answers.latName, manager_id = answers.employeeManager);
+      const params = (first_name = answers.firstName, last_name = answers.lastName, manager_id = answers.employeeManager);
     
     db.query(sql, params, (err, result) => {
       if (err) {
