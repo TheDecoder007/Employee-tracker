@@ -63,7 +63,7 @@ const promptMain = () => {
                       LEFT JOIN roles
                       ON employee.role_id = roles.id
                       LEFT JOIN department
-                      ON roles.department_id = department.id                     
+                      ON roles.departmentid = department.id                     
                       `;
         db.query(sql, (err, rows) => {
           if (err) {
@@ -99,21 +99,21 @@ const addDepartment = () => {
       const sql = `INSERT INTO department (department_name)
       VALUES (?)`;
       const params = (department_name = answer.departmentName);
-    
-    db.query(sql, params, (err, result) => {
-      if (err) {
-        res.status(400).json({ error: err.message });
-        return;
-      }
-      // res.json({
-      //   message: 'Department added',
-      //   data: body
-      // });
-      console.log("Department added");
-      promptMain();
+
+      db.query(sql, params, (err, result) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        // res.json({
+        //   message: 'Department added',
+        //   data: body
+        // });
+        console.log("Department added");
+        promptMain();
+      });
     });
-    });
-  };
+};
 
 const addRole = () => {
   return inquirer
@@ -137,23 +137,26 @@ const addRole = () => {
     .then((answers) => {
       const sql = `INSERT INTO roles (title, salary, departmentid )
       VALUES (?,?,?)`;
-      const params = [title = answers.roleTitle, salary = answers.roleSalary, departmentid = answers.roleDepartment];
-    
-    db.query(sql, params, (err, result) => {
-      if (err) {
-        res.status(400).json({ error: err.message });
-        return;
-      }
-      // res.json({
-      //   message: 'Role added',
-      //   data: body
-      // });
-      console.log("Role added");
-      promptMain();
-    });
-  });
-    };
+      const params = [
+        (title = answers.roleTitle),
+        (salary = answers.roleSalary),
+        (departmentid = answers.roleDepartment),
+      ];
 
+      db.query(sql, params, (err, result) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        // res.json({
+        //   message: 'Role added',
+        //   data: body
+        // });
+        console.log("Role added");
+        promptMain();
+      });
+    });
+};
 
 const addEmployee = () => {
   return inquirer
@@ -182,21 +185,26 @@ const addEmployee = () => {
     .then((answers) => {
       const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id )
       VALUES (?,?,?,?)`;
-      const params = (first_name = answers.firstName, last_name = answers.lastName, manager_id = answers.employeeManager);
-    
-    db.query(sql, params, (err, result) => {
-      if (err) {
-        res.status(400).json({ error: err.message });
-        return;
-      }
-      // res.json({
-      //   message: 'Employee added',
-      //   data: body
-      // });
-      console.log("Employee added");
-      promptMain();
+      const params = [
+        (first_name = answers.firstName),
+        (last_name = answers.lastName),
+        (role_id = answers.employeeRole),
+        (manager_id = answers.employeeManager),
+      ];
+
+      db.query(sql, params, (err, result) => {
+        // if (err) {
+        // res.status(400).json({ error: err.message });
+        // return;
+        // }
+        // res.json({
+        //   message: 'Employee added',
+        //   data: body
+        // });
+        console.log("Employee added");
+        promptMain();
+      });
     });
-  });
 };
 
 promptMain();
