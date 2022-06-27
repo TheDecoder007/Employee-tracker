@@ -63,8 +63,7 @@ const promptMain = () => {
                       LEFT JOIN roles
                       ON employee.role_id = roles.id
                       LEFT JOIN department
-                      ON roles.department_id = department.id
-                      
+                      ON roles.department_id = department.id                     
                       `;
         db.query(sql, (err, rows) => {
           if (err) {
