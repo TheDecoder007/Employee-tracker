@@ -21,4 +21,5 @@ GitHub link https://github.com/TheDecoder007/Employee-tracker
 
 ## Screenshot
 
+![Screenshot (852)](https://user-images.githubusercontent.com/101135574/178544819-6f7d2503-d9e8-45fe-8929-909b7018a032.png)
 
